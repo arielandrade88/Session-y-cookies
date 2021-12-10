@@ -1,11 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/css/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session Cookies</title>
+   
+    <link rel="stylesheet" href="/css/style.css" />
+    
+</head>
+<body class="<%= locals.bgColor ? bgColor: null %>">
+
+  <% if (locals.name) { %>
+    <div class="container-fluid w-50 form-control text-center">
+      <p>Hola ​<b>
+          <%= name %>
+        </b>​, elegiste el color: <b>
+          <%= bgColor %>
+        </b>, tu email es: <b>
+          <%= email %>
+        </b> ​y tu edad es: <b>
+          <%= age %>
+        </b></p>
+      <a href="/user" class="btn border btn-success">Presiona el boton</a>
+      <a href="/user/reset" class="btn btn-danger">Olvidar el color</a>
+    </div>
+    <% } %>
+      <div>
+        <form action="/" method="post" class="container-fluid w-50 form-control text-center" novalidate>
+
+          <label for="name">Nombre</label>
+          <input type="text" name="name" value="<%= locals.old && locals.old.name ? old.name : null%>"
+            placeholder="Nombre">
+          <small>
+            <%= locals.errors && locals.errors.name ? errors.name.msg : null %>
+          </small>
+
+          <label for="select">Color de fondo</label>
+          <select name="bgColor">
+            <option value="">Seleccione un color</option>
+            <option value="rojo">Rojo</option>
+            <option value="naranja">Naranja</option>
+            <option value="amarillo">Amarillo</option>
+            <option value="verde">Verde</option>
+            <option value="azul">Azul</option>
+          </select>
+          <small class="text-danger small">
+            <%= locals.errors && locals.errors.bgColor ? errors.bgColor.msg : null %>
+          </small>
+
+
+          <label for="email">Email</label>
+          <input type="email" name="email" value="<%= locals.old && locals.old.email ? old.email : null%>"
+            placeholder="Email">
+          <small class="text-danger small">
+            <%= locals.errors && locals.errors.email ? errors.email.msg : null %>
+          </small>
+
+
+          <label for="age">Edad</label>
+          <input type="number" placeholder="Edad" value="<%= locals.old && locals.old.age ? old.age : null%>"
+            name="age">
+          <small>
+            <%= locals.errors && locals.errors.age ? errors.age.msg : null %>
+          </small>
+
+          <div class="form-check">
+
+            <label for="remember">Recordar color</label>
+            <input type="checkbox" name="remember">
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+      </div>
+
+</body>
+
 </html>
